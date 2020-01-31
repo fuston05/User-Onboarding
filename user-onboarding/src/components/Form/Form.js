@@ -78,9 +78,9 @@ const FormikLogInForm = withFormik({
   //validationSchema
   //'shape' is an obj
   validationSchema: Yup.object().shape({
-    name: Yup.string().required(),
-    email: Yup.string().required(),
-    password: Yup.string().required(),
+    name: Yup.string().min(3).max(24).required(),
+    email: Yup.string().email().min(12).max(24).required(),
+    password: Yup.string().min(9).max(24).required(),
     terms: Yup.bool().required()
   }),
   //handleSubmit
@@ -89,8 +89,10 @@ const FormikLogInForm = withFormik({
     console.log('submitting', values);
     //axios
     axios
-    .post()
-    .then()
+    .post('https://reqres.in/api/users', values)
+    .then(res => {
+      console.log('res: ',res);
+    })
     .catch(err => {
       console.log(err.response);
     })
