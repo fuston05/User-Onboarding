@@ -1,10 +1,21 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 
+//styles
+import './form.css';
+
 // bring in props from withFormik as an obj{}
 const LogInForm = ( { values, errors, touched, status } ) => {
+  const [users, setUsers]= useState([]);
+
+  useEffect(() => {
+    
+  status && setUsers( users => [ ...users, status ] );
+    
+  }, [status])
+
   return (
     <div className= 'formCont'>
 
@@ -58,6 +69,18 @@ const LogInForm = ( { values, errors, touched, status } ) => {
       </Form>
 
       {/* map over data and display here */}
+      {
+        users.map( user => {
+          return(
+            <div className= 'card' key= {user.id}>
+              <p>{user.name}</p>
+              <p>{user.email}</p>
+              <p>{user.password}</p>
+              <p>Terms if Service Accepted: {user.terms.toString()}</p>
+            </div>
+          )
+        } )
+      }
 
     </div> /**end formCont */
   )
@@ -86,12 +109,14 @@ const FormikLogInForm = withFormik({
   //handleSubmit
   // props: form values, {formikBag destructured methods}
   handleSubmit(values, {resetForm, setStatus}){
-    console.log('submitting', values);
+    // console.log('submitting', values);
     //axios
     axios
     .post('https://reqres.in/api/users', values)
     .then(res => {
-      console.log('res: ',res);
+      // console.log('res: ', res.data);
+      setStatus(res.data);
+      resetForm();
     })
     .catch(err => {
       console.log(err.response);
