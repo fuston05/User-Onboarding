@@ -1,58 +1,57 @@
-.formCont{
+.formCont {
   width: 100%;
   display: flex;
   justify-content: space-evenly;
   align-items: flex-start;
 }
 
-form{
+form {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
 }
 
-h3{
+h3 {
   font-size: 1.4rem;
   padding-right: 10px;
 }
 
-label{
+label {
   font-size: 1.2rem;
 }
 
-.inputCont{
+.inputCont {
   display: flex;
   padding-bottom: 5px;
   position: relative;
 }
 
-.checkbox{
+.checkbox {
   padding-bottom: 25px;
-
   position: relative;
 }
 
-input{
+input {
   margin: 0 0 20px 10px;
   padding: 5px;
   font-size: 1.2rem;
   color: #777;
 }
 
-button{
+button {
   font-size: 1.2rem;
   color: #777;
 }
 
-.userCont{
+.userCont {
   width: 60%;
   padding: 0 0 0 2%;
   height: 100%;
   border-left: 1px solid #aaa;
 }
 
-.card{
+.card {
   border: 1px solid orange;
   border-radius: 5px;
   box-shadow: 2px 2px 4px #000;
@@ -60,23 +59,18 @@ button{
   background-color: cornflowerBlue;
 }
 
-.card p{
+.card p {
   font-size: 1.2rem;
   color: #eee;
- 
+
 }
 
-.errors{
+.errors {
   color: red;
   font-size: 1rem;
   position: absolute;
   bottom: 6px;
-  right: 20px;  
+  right: 20px;
   padding: 0;
   margin: 0;
 }
-
-
-
-
-

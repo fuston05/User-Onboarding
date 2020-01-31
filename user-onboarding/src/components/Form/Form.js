@@ -13,12 +13,10 @@ const LogInForm = ({ values, errors, touched, status }) => {
   useEffect(() => {
 
     status && setUsers(users => [...users, status]);
-
   }, [status])
 
   return (
     <div className='formCont'>
-
       <Form>
         <h3>Add User</h3>
         <div className='inputCont'>
@@ -32,8 +30,6 @@ const LogInForm = ({ values, errors, touched, status }) => {
           {touched.name && errors.name && <p className='errors'>{errors.name}</p>}
         </div>
 
-
-
         <div className='inputCont'>
           <label>Email:
             <Field
@@ -45,8 +41,6 @@ const LogInForm = ({ values, errors, touched, status }) => {
           {/* Yup error handling */}
           {touched.email && errors.email && <p className='errors'>{errors.email}</p>}
         </div>
-
-
 
         <div className='inputCont'>
           <label>Password:
@@ -60,8 +54,6 @@ const LogInForm = ({ values, errors, touched, status }) => {
           {touched.password && errors.password && <p className='errors'>{errors.password}</p>}
         </div>
 
-
-
         <div className='inputCont checkbox'>
           <label>Terms of Service:
             <Field
@@ -73,8 +65,6 @@ const LogInForm = ({ values, errors, touched, status }) => {
           {/* Yup error handling */}
           {touched.terms && errors.terms && <p className='errors'>{errors.terms}</p>}
         </div>
-
-
 
         <button
           type='submit'
@@ -96,7 +86,6 @@ const LogInForm = ({ values, errors, touched, status }) => {
           })
         }
       </div>
-
     </div> /**end formCont */
   )
 }//end LogInForm
@@ -137,9 +126,6 @@ const FormikLogInForm = withFormik({
         console.log(err.response);
       })
   }
-
-
-
 })(LogInForm);
 
 export default FormikLogInForm;
