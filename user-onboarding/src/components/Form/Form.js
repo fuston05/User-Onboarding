@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { withFormik, Form, Field } from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
@@ -7,94 +7,94 @@ import axios from 'axios';
 import './form.css';
 
 // bring in props from withFormik as an obj{}
-const LogInForm = ( { values, errors, touched, status } ) => {
-  const [users, setUsers]= useState([]);
+const LogInForm = ({ values, errors, touched, status }) => {
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
-    
-  status && setUsers( users => [ ...users, status ] );
-    
+
+    status && setUsers(users => [...users, status]);
+
   }, [status])
 
   return (
-    <div className= 'formCont'>
+    <div className='formCont'>
 
       <Form>
         <h3>Add User</h3>
-        <div className= 'inputCont'>
+        <div className='inputCont'>
           <label>Name:
-            <Field 
-            name= 'name' 
-            placeholder= 'Name'
+            <Field
+              name='name'
+              placeholder='Name'
             />
           </label>
           {/* Yup error handling */}
-        {touched.name && errors.name && <p className= 'errors'>{ errors.name }</p>}
+          {touched.name && errors.name && <p className='errors'>{errors.name}</p>}
         </div>
 
-        
 
-        <div className= 'inputCont'>
+
+        <div className='inputCont'>
           <label>Email:
-            <Field 
-            name= 'email'
-            type= 'email' 
-            placeholder= 'Email'
+            <Field
+              name='email'
+              type='email'
+              placeholder='Email'
             />
           </label>
           {/* Yup error handling */}
-        {touched.email && errors.email && <p className= 'errors'>{ errors.email }</p> }
+          {touched.email && errors.email && <p className='errors'>{errors.email}</p>}
         </div>
 
-         
 
-        <div className= 'inputCont'>
+
+        <div className='inputCont'>
           <label>Password:
-            <Field 
-            name= 'password'
-            type= 'password' 
-            placeholder= 'Password'
+            <Field
+              name='password'
+              type='password'
+              placeholder='Password'
             />
           </label>
           {/* Yup error handling */}
-        {touched.password && errors.password && <p className= 'errors'>{ errors.password }</p>}
+          {touched.password && errors.password && <p className='errors'>{errors.password}</p>}
         </div>
 
-         
 
-        <div className= 'inputCont'>
+
+        <div className='inputCont checkbox'>
           <label>Terms of Service:
-            <Field 
-            check= {values.terms.toString()}
-            name= 'terms'
-            type= 'checkbox' 
+            <Field
+              check={values.terms}
+              name='terms'
+              type='checkbox'
             />
           </label>
-           {/* Yup error handling */}
-        {touched.terms && errors.terms && <p className= 'errors'>{ errors.terms }</p>}
+          {/* Yup error handling */}
+          {touched.terms && errors.terms && <p className='errors'>{errors.terms}</p>}
         </div>
 
-        
 
-        <button 
-        type= 'submit'
+
+        <button
+          type='submit'
         >Submit</button>
       </Form>
 
       {/* map over data and display here */}
-      <div className= 'userCont'>
-      {
-        users.map( user => {
-          return(
-            <div className= 'card' key= {user.id}>
-              <p>{user.name}</p>
-              <p>{user.email}</p>
-              <p>{user.password}</p>
-              <p>Terms if Service Accepted: {user.terms.toString()}</p>
-            </div>
-          )
-        } )
-      }
+      <div className='userCont'>
+        {
+          users.map(user => {
+            return (
+              <div className='card' key={user.id}>
+                <p>{user.name}</p>
+                <p>{user.email}</p>
+                <p>{user.password}</p>
+                <p>Terms if Service Accepted: {user.terms}</p>
+              </div>
+            )
+          })
+        }
       </div>
 
     </div> /**end formCont */
@@ -110,7 +110,7 @@ const FormikLogInForm = withFormik({
       name: name || 'scott fuston',
       email: email || 'fuston@email.com',
       password: password || 'Monkey123!',
-      terms: terms || false
+      terms: terms || 'false'
     }
   },
   //validationSchema
@@ -119,23 +119,23 @@ const FormikLogInForm = withFormik({
     name: Yup.string().min(3).max(24).required(),
     email: Yup.string().email().min(12).max(24).required(),
     password: Yup.string().min(9).max(24).required(),
-    terms: Yup.bool().required()
+    terms: Yup.boolean().oneOf([true], 'You must accept the Terms').required()
   }),
   //handleSubmit
   // props: form values, {formikBag destructured methods}
-  handleSubmit(values, {resetForm, setStatus}){
+  handleSubmit(values, { resetForm, setStatus }) {
     // console.log('submitting', values);
     //axios
     axios
-    .post('https://reqres.in/api/users', values)
-    .then(res => {
-      // console.log('res: ', res.data);
-      setStatus(res.data);
-      resetForm();
-    })
-    .catch(err => {
-      console.log(err.response);
-    })
+      .post('https://reqres.in/api/users', values)
+      .then(res => {
+        // console.log('res: ', res.data);
+        setStatus(res.data);
+        resetForm();
+      })
+      .catch(err => {
+        console.log(err.response);
+      })
   }
 
 
